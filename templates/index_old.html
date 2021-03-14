@@ -1,0 +1,631 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>AB-тестирование</title><style>
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.highlight-default {
+}
+.highlight-gray {
+	color: rgb(155,154,151);
+}
+.highlight-brown {
+	color: rgb(100,71,58);
+}
+.highlight-orange {
+	color: rgb(217,115,13);
+}
+.highlight-yellow {
+	color: rgb(223,171,1);
+}
+.highlight-teal {
+	color: rgb(15,123,108);
+}
+.highlight-blue {
+	color: rgb(11,110,153);
+}
+.highlight-purple {
+	color: rgb(105,64,165);
+}
+.highlight-pink {
+	color: rgb(173,26,114);
+}
+.highlight-red {
+	color: rgb(224,62,62);
+}
+.highlight-gray_background {
+	background: rgb(235,236,237);
+}
+.highlight-brown_background {
+	background: rgb(233,229,227);
+}
+.highlight-orange_background {
+	background: rgb(250,235,221);
+}
+.highlight-yellow_background {
+	background: rgb(251,243,219);
+}
+.highlight-teal_background {
+	background: rgb(221,237,234);
+}
+.highlight-blue_background {
+	background: rgb(221,235,241);
+}
+.highlight-purple_background {
+	background: rgb(234,228,242);
+}
+.highlight-pink_background {
+	background: rgb(244,223,235);
+}
+.highlight-red_background {
+	background: rgb(251,228,228);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(55, 53, 47, 0.6);
+	fill: rgba(55, 53, 47, 0.6);
+}
+.block-color-brown {
+	color: rgb(100,71,58);
+	fill: rgb(100,71,58);
+}
+.block-color-orange {
+	color: rgb(217,115,13);
+	fill: rgb(217,115,13);
+}
+.block-color-yellow {
+	color: rgb(223,171,1);
+	fill: rgb(223,171,1);
+}
+.block-color-teal {
+	color: rgb(15,123,108);
+	fill: rgb(15,123,108);
+}
+.block-color-blue {
+	color: rgb(11,110,153);
+	fill: rgb(11,110,153);
+}
+.block-color-purple {
+	color: rgb(105,64,165);
+	fill: rgb(105,64,165);
+}
+.block-color-pink {
+	color: rgb(173,26,114);
+	fill: rgb(173,26,114);
+}
+.block-color-red {
+	color: rgb(224,62,62);
+	fill: rgb(224,62,62);
+}
+.block-color-gray_background {
+	background: rgb(235,236,237);
+}
+.block-color-brown_background {
+	background: rgb(233,229,227);
+}
+.block-color-orange_background {
+	background: rgb(250,235,221);
+}
+.block-color-yellow_background {
+	background: rgb(251,243,219);
+}
+.block-color-teal_background {
+	background: rgb(221,237,234);
+}
+.block-color-blue_background {
+	background: rgb(221,235,241);
+}
+.block-color-purple_background {
+	background: rgb(234,228,242);
+}
+.block-color-pink_background {
+	background: rgb(244,223,235);
+}
+.block-color-red_background {
+	background: rgb(251,228,228);
+}
+.select-value-color-default { background-color: rgba(206,205,202,0.5); }
+.select-value-color-gray { background-color: rgba(155,154,151, 0.4); }
+.select-value-color-brown { background-color: rgba(140,46,0,0.2); }
+.select-value-color-orange { background-color: rgba(245,93,0,0.2); }
+.select-value-color-yellow { background-color: rgba(233,168,0,0.2); }
+.select-value-color-green { background-color: rgba(0,135,107,0.2); }
+.select-value-color-blue { background-color: rgba(0,120,223,0.2); }
+.select-value-color-purple { background-color: rgba(103,36,222,0.2); }
+.select-value-color-pink { background-color: rgba(221,0,129,0.2); }
+.select-value-color-red { background-color: rgba(255,0,26,0.2); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="d2b1ef7f-b07b-42eb-9217-c4c0ecdceda2" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">🆎</span></div><h1 class="page-title">AB-тестирование</h1></header><div class="page-body"><p id="90c586d2-fba4-4494-b7be-b4ea694d1be8" class="">
+</p><p id="20a35d59-6cae-4686-9343-28c060fff979" class=""><strong>В прекрасном сбермаркете будущего</strong></p><p id="63707240-45c2-4c17-a268-c1dce92fc600" class="">Материалы:</p><figure id="ad6e74bf-64e6-44b3-9fee-7f4470142836" class="link-to-page"><a href="https://www.notion.so/ad6e74bf64e644b39fee7f4470142836"><span class="icon">🌐</span>Требования к системе сплитования трафика </a></figure><figure id="b11757a9-8ec2-405c-af4f-2340c03cb682" class="link-to-page"><a href="https://www.notion.so/Skyeng-b11757a98ec2405caf4f2340c03cb682"><span class="icon">🇬🇧</span>Как устроена сплит-тестирование в  Skyeng</a></figure><p id="63ff6f0c-a8b3-44e9-bef5-0cc99abf5803" class="">Возможная схема спит-тестирования</p><figure id="ab6b93e2-a6f4-4ffb-ac3c-6d1f4b8f6e0c"><a href="https://miro.com/app/board/o9J_krAjgSs=/" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">Miro: the collaborative whiteboard platform for distributed teams</div><div class="bookmark-description">Scalable, secure, cross-device and enterprise-ready team collaboration whiteboard for distributed teams. Join 5M+ users from around the world</div></div><div class="bookmark-href"><img src="https://miro.com/static/favicons/favicon.ico?v=00zdoEw6N6" class="icon bookmark-icon"/>https://miro.com/app/board/o9J_krAjgSs=/</div></div><img src="https://miro.com/static/images/share/miro.png?00002" class="bookmark-image"/></a></figure><p id="be53c4d4-388e-472c-9884-fd6633d53778" class="">Как сплит-тесты проводятся </p><ul id="c42bfcc6-584d-42db-8812-46c4e618dc62" class="bulleted-list"><li>в авито </li></ul><figure id="e3c700df-acc8-4e75-975f-9daaacfe7b0d"><a href="https://habr.com/ru/company/avito/blog/454164/" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">Как устроено A/B-тестирование в Авито</div><div class="bookmark-description">Всем привет. Меня зовут Данила, я работаю в команде, которая развивает аналитическую инфраструктуру в Авито. Центральное место в этой инфраструктуре занимает А/B-тестирование. А/B эксперименты - ключевой инструмент принятия решений в Авито. В нашем цикле продуктовой разработки А/B-тест является обязательным этапом. Мы проверяем каждую гипотезу и выкатываем только позитивные изменения.</div></div><div class="bookmark-href"><img src="https://habr.com/images/favicon-16x16.png" class="icon bookmark-icon"/>https://habr.com/ru/company/avito/blog/454164/</div></div><img src="https://habr.com/share/publication/454164/408f1cc253cd5ce56cf7aaeada89abfb/?v=1" class="bookmark-image"/></a></figure><ul id="0884f418-af2c-49ce-ade3-ef16e47315cf" class="bulleted-list"><li>в яндексе</li></ul><figure id="33c7e2f9-493c-4b09-a1e8-f8e5b4387b87"><a href="https://habr.com/ru/company/yandex/blog/342704/" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">Как у нас устроено A/Б-тестирование. Лекция Яндекса</div><div class="bookmark-description">A/Б-тестирование на сервисах Яндекса проводится постоянно. &quot;Раскатить на такую-то долю аудитории&quot; и посмотреть на реакцию людей - настолько стандартная практика, что ни у кого в команде не возникает вопроса, зачем это нужно. А чтобы не было проблем с самим тестированием, у нас есть специальная инфраструктура для экспериментов.</div></div><div class="bookmark-href"><img src="https://habr.com/images/favicon-16x16.png" class="icon bookmark-icon"/>https://habr.com/ru/company/yandex/blog/342704/</div></div><img src="https://habr.com/share/publication/342704/a6ff78c2d2b96e375899748e064ff486/?v=1" class="bookmark-image"/></a></figure><ul id="c7409f01-3004-4382-8702-e3e880dcfe3e" class="bulleted-list"><li>в гугле</li></ul><figure id="4c0656e0-47d0-4f96-b741-1f8963c940f3"><a href="https://research.google/pubs/pub36500/" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">Overlapping Experiment Infrastructure: More, Better, Faster Experimentation - Google Research</div><div class="bookmark-description">At Google, experimentation is practically a mantra; we evaluate almost every change that potentially affects what our users experience. Such changes include not only obvious user-visible changes such as modifications to a user interface, but also more subtle changes such as different machine learning algorithms that might affect ranking or content selection.</div></div><div class="bookmark-href"><img src="https://research.google/static/images/favicon-6da5620880159634213e197fafca1dde0272153be3e4590818533fab8d040770.ico" class="icon bookmark-icon"/>https://research.google/pubs/pub36500/</div></div><img src="https://research.google/static/images/share-9cd7266ef5001b20f98e01062c26189fa69ed6c784df04caf809668887fd339a.png" class="bookmark-image"/></a></figure><p id="23590d20-2b14-4b6d-bb4f-aa13f8c0b3dd" class="">
+</p><p id="bdd4a712-77f8-4380-a703-a5509c872b46" class="">
+</p><p id="55397f1d-b980-4570-84c9-5c12762cea3f" class="">To-do:</p><ul id="93a88302-33c2-4e2e-963f-f042c2eb8500" class="to-do-list"><li><div class="checkbox checkbox-on"></div> <span class="to-do-children-checked">прописать требования к сплитовалке</span></li></ul><ul id="53e31953-11ea-40f8-b779-8a65c4053b3c" class="to-do-list"><li><div class="checkbox checkbox-on"></div> <span class="to-do-children-checked">погуглить гугл оптимайз - проверить, насколько подходим</span></li></ul><p id="b6dd9672-23fd-4b5a-9020-92b7fa83cb70" class="">Пока выглядит так, что для веба на первое время должен подойти. Не нашла явного описания, как он может связать пользователей до и после логина, но уверена, что он такое умеет (тк умеет ГА, с которой его изи сконнектить). Проще всего, кажется, просто потестить на каком-нибудь сайти не тильде. </p><ul id="fcf3ff2b-9fc1-4eb6-bcdf-dd2a747a441c" class="to-do-list"><li><div class="checkbox checkbox-on"></div> <span class="to-do-children-checked">Описать сплит-систему в скуендж</span></li></ul><ul id="235c9847-089d-4143-b325-ff057c4e0808" class="to-do-list"><li><div class="checkbox checkbox-on"></div> <span class="to-do-children-checked">Проверить, что оптимайз пушит в даталеер события</span></li></ul><p id="24bbb4db-2650-476b-9130-f94a77e4aa17" class="">Оптимайз не пушит ничего в data layer (по крайней мере для сайта на тильде), но прописывает utm_expid в ссылке. Например</p><p id="0b418802-957f-40e2-bbf7-83805cba5a3e" class=""><code>utm_expid=.PeZQMBPCTVqdsd2BNqGDrA.0 - для контрольной группы</code></p><p id="4b8ebb7e-a69f-4e12-80ee-876dd32f8b24" class=""><code>utm_expid=.PeZQMBPCTVqdsd2BNqGDrA.1 - для тестовой группы</code></p><p id="d012288b-5a28-48ef-b275-794eb165b334" class="">(при чем если вручную заменить последнюю цифру, показываться &quot;правильный&quot; вариант, то есть группу скорее всего можно и js-ом откуда-то еще забрать)</p><p id="f760e2c8-8349-4332-b619-c238fd5ce9f5" class="">Энивей, если сможем забирать эту утм-ку себе в хранилище (или другой маркер), сможем определять группы. </p><ul id="d75e97b2-e7dc-4d69-83f5-bf7831e55227" class="to-do-list"><li><div class="checkbox checkbox-on"></div> <span class="to-do-children-checked">Прописать схему для комбинации веб+мобилка</span></li></ul><ul id="c1ebc097-c421-4837-a02f-94e00231a8d8" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Поресечить, есть ли кросс-платформенные решения по аб-тестам</span></li></ul><p id="a9e2a560-2167-4bbc-8754-9d80280a3155" class="">
+</p></div></article></body></html>

@@ -1,0 +1,14 @@
+{% extends 'basic.html' %}
+{% block title%} {{  article.title  }} {% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1> {{  article.title  }} </h1>
+
+    <div class="alert alert-info">
+        <p><b>Дата создания: {{article.created_at.date()}}</b></p>
+        <p>{{ article.text }}</p>
+    </div>
+
+</div>
+{% endblock %}
