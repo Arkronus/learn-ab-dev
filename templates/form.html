@@ -1,0 +1,23 @@
+{% extends 'basic.html' %}
+
+
+{% block title%} Страница про нас title {% endblock %}
+
+
+{% block body %}
+<form action="" method="post" novalidate>
+    {{ form.hidden_tag() }}
+    <p>
+        {{ form.question.text }}
+        {{ form.user_answer.label }}
+        {{ form.user_answer.label }}<br>
+        {{ form.user_answer(size=32) }}
+        {% for error in form.user_answer.errors %}<br>
+        <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+        {{ form.submit() }}
+    </p>
+
+
+</form>
+{% endblock %}
