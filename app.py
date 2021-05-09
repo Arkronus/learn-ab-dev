@@ -27,8 +27,8 @@ from models import *
 
 @app.route('/')
 def index():
-    posts = Post.query.order_by(Post.is_practice.asc()).all()
-    return render_template("index.html", posts = posts[:])
+    posts = Post.query.order_by(Post.sorting_column.desc()).all()
+    return render_template("index.html", posts = posts)
 
 
 @app.route('/about')
@@ -61,6 +61,7 @@ def submit_results():
 @app.route('/posts/<int:id>', methods = ['POST', 'GET'])
 def post_detail(id):
     post = Post.query.get(id)
+    render_url = post.custom_html_file if post.custom_html_file else 'post_detail.html'
     if post.is_practice:
         questions = post.questions
         qid, current_question = _set_qid_and_current_question(request.args.get('qid'), questions)
@@ -79,7 +80,9 @@ def post_detail(id):
                     return redirect(url_for('post_detail', qid = qid+1, id = id))
     else:
         form, qid = None, None
-    return render_template("post_detail.html", post = post,
+
+
+    return render_template(render_url, post = post,
                             form = form, qid = qid)
 
 # if __name__ == "__main__":
