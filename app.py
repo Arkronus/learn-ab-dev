@@ -82,8 +82,8 @@ def post_detail(id):
     return render_template("post_detail.html", post = post,
                             form = form, qid = qid)
 
-if __name__ == "__main__":
-    app.run(debug=True)
+# if __name__ == "__main__":
+#     app.run(debug=True)
 
 
 
