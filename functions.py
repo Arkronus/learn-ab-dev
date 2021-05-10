@@ -1,3 +1,6 @@
+from flask import Markup
+
+
 def _set_qid_and_current_question(qid, questions):
     if qid and qid.isdigit():
         qid = int(qid)
@@ -9,16 +12,9 @@ def _set_qid_and_current_question(qid, questions):
 
     if questions:
         current_question = questions[qid - 1]
+        current_question.text = Markup(current_question.text)
     else:
         current_question = None
     return qid, current_question
 
 
-def _set_is_final(isf):
-    print(isf)
-    if isf:
-        print('if')
-        print(isf.lower)
-        return isf.lower() == 'true'
-    else:
-        return False

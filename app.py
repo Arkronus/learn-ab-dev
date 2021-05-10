@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, request, redirect, flash
+from flask import Flask, render_template, url_for, request, redirect, flash, Markup
 from flask_sqlalchemy import SQLAlchemy
 import traceback
 from config import Configuration
@@ -12,7 +12,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField
 from wtforms.validators import DataRequired
 from forms import QuestionForm
-from functions import _set_is_final, _set_qid_and_current_question
+from functions import _set_qid_and_current_question
 
 #from datetime import datetime
 
@@ -27,7 +27,7 @@ from models import *
 
 @app.route('/')
 def index():
-    posts = Post.query.order_by(Post.sorting_column.desc()).all()
+    posts = Post.query.order_by(Post.sorting_column.asc()).all()
     return render_template("index.html", posts = posts)
 
 
@@ -39,31 +39,15 @@ def about():
 def test():
     return render_template("test.html")
 
-@app.route('/submit-results', methods = ['POST', 'GET'])
-def submit_results():
-    if request.method == 'POST':
-        title = request.form['title']
-        text = request.form['text']
-        is_practice = False
-        article = Post(title = title, text = text, is_practice= is_practice)
-        try:
-            db.session.add(article)
-            db.session.commit()
-            return redirect(url_for('index'))
-        except:
-            traceback.print_exc()
-            return 'foo'
-
-    return render_template("submit-results.html")
-
-
 
 @app.route('/posts/<int:id>', methods = ['POST', 'GET'])
 def post_detail(id):
     post = Post.query.get(id)
+    post.text = Markup(post.text)
     render_url = post.custom_html_file if post.custom_html_file else 'post_detail.html'
     if post.is_practice:
         questions = post.questions
+        questions.sort(key = lambda x: x.sorting_column)
         qid, current_question = _set_qid_and_current_question(request.args.get('qid'), questions)
         form = QuestionForm(current_question)
 
